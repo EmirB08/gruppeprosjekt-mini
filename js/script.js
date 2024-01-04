@@ -1,110 +1,117 @@
-/* ---------------
-!!! Get the API !!!
------------------ */
-let newsDataByCategory = {};
-console.log(newsDataByCategory);
+let data; // Declare data variable globally
+let newsDataByCategory = {}; // this is now global scope instead
+
+const makeElements = (type, parameters) => { // creates an element with the given parameters
+    const element = document.createElement(type);
+    Object.entries(parameters).forEach(([propertyKey, propertyValue]) => {
+        element[propertyKey] = propertyValue;
+    });
+    return element;
+};
+
+const createItemCard = (item) => { // creates a card for the given item
+    const card = makeElements("div", { className: "item-card" });
+    const link = makeElements("a", { href: item.link, className: "news-link" });
+    const image = makeElements("img", { src: item.og || "./media/no-img.png", alt: item.title || "News Image", className: "news-image" });
+    const title = makeElements("p", { textContent: item.title, className: "news-title" });
+
+    link.appendChild(image);
+    link.appendChild(title);
+    card.appendChild(link);
+
+    return card;
+};
 
 const fetchNews = async () => {
-  const response = await fetch("https://ok.surf/api/v1/cors/news-feed");
-  const data = await response.json();
+    const response = await fetch("https://ok.surf/api/v1/cors/news-feed");
+    data = await response.json();
+    console.log(data);
 
-  // Organize news data by category
-  Object.keys(data).forEach((category) => {
-    newsDataByCategory[category.toLowerCase()] = data[category];
-  });
+    Object.keys(data).forEach((category) => {
+        newsDataByCategory[category.toLowerCase()] = data[category];
+    });
+    
+    const container = document.getElementById("news-container");
 
-  const container = document.getElementById("news-container");
+    Object.keys(data).forEach(category => { // needs to iterate through each category!
+        data[category].forEach(item => {
+            const card = createItemCard(item);
+            container.appendChild(card);
+        });
+    });
 
-  // Display news for the default category (e.g., "business")
-  displayNewsByCategory("business", container);
+    const searchInput = document.getElementById("search-input");
+            searchInput.addEventListener("input", debounce(() => filterNews(searchInput.value), 300));                  
 };
 
-/* ----------------
-!!! Display News by Category !!!
-------------------- */
-const displayNewsByCategory = (category, container) => {
-  // Convert category to lowercase for consistency
-  const lowerCaseCategory = category.toLowerCase();
-
-  // Check if data for the specified category is available
-  if (
-    newsDataByCategory[lowerCaseCategory] &&
-    newsDataByCategory[lowerCaseCategory].length > 0
-  ) {
-    // Clear the existing content
+const filterNews = (searchTerm) => {
+    const container = document.getElementById("news-container");
     container.innerHTML = "";
 
-    // Iterate over the data for the specified category
-    newsDataByCategory[lowerCaseCategory].forEach((item) => {
-      const card = createItemCard(item);
-      container.appendChild(card);
+    Object.keys(data).forEach(category => {
+        data[category].forEach(item => {
+            if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+                const card = createItemCard(item);
+                container.appendChild(card);
+            }
+        });
     });
-  }
 };
 
-/* --------------------
-!!! Create Elements !!!
---------------------- */
-const makeElements = (type, parameters) => {
-  // creates an element with the given parameters
-  const element = document.createElement(type);
-  Object.entries(parameters).forEach(([propertyKey, propertyValue]) => {
-    element[propertyKey] = propertyValue;
-  });
-  return element;
+const debounce = (func, delay) => {
+    let timeout;
+    return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, delay);
+    };
 };
 
-const createItemCard = (item) => {
-  // creates a card for the given item
-  const card = makeElements("div", { className: "item-card" });
-  const link = makeElements("a", { href: item.link, className: "news-link" });
-  const image = makeElements("img", {
-    src: item.og || "./media/no-img.png",
-    alt: item.title || "News Image",
-    className: "news-image",
-  });
-  const title = makeElements("p", {
-    textContent: item.title,
-    className: "news-title",
-  });
-
-  link.appendChild(image);
-  link.appendChild(title);
-  card.appendChild(link);
-
-  return card;
-};
-
-/* ----------------
-!!! Create Nav !!!
-------------------- */
 const navMenu = document.getElementById("nav-Menu");
 
-// Manually create buttons for each category
-const categories = [
-  "business",
-  "entertainment",
-  "health",
-  "science",
-  "sports",
-  "technology",
-  "us",
-  "world",
+const categories = [ // Manually create buttons for each category
+    "business",
+    "entertainment",
+    "health",
+    "science",
+    "sports",
+    "technology",
+    "us",
+    "world",
 ];
 
 categories.forEach((category) => {
-  const button = makeElements("button", {
+const button = makeElements("button", {
     type: "button",
     textContent: category,
-  });
-
-  button.addEventListener("click", () => {
-    const container = document.getElementById("news-container");
-    displayNewsByCategory(category, container);
-  });
-
-  navMenu.appendChild(button);
 });
 
-// Initial fetch of news
+button.addEventListener("click", () => {
+    const container = document.getElementById("news-container");
+    displayNewsByCategory(category, container);
+});
+
+navMenu.appendChild(button);
+});
+
+const displayNewsByCategory = (category, container) => {
+    
+    const lowerCaseCategory = category.toLowerCase(); // Convert category to lowercase for consistency
+    
+    if (
+    newsDataByCategory[lowerCaseCategory] && // Check if data for the specified category is available
+    newsDataByCategory[lowerCaseCategory].length > 0
+    ) {
+      container.innerHTML = ""; // Clear the existing content
+      newsDataByCategory[lowerCaseCategory].forEach((item) => { // Iterate over the data for the specified category
+        const card = createItemCard(item);
+        container.appendChild(card);
+    });
+    }
+};
+
+
 fetchNews();
