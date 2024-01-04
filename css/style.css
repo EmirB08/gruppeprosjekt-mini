@@ -20,9 +20,8 @@ nav {
   justify-content: space-evenly;
 }
 
-body,
-nav {
-  max-width: 75%;
+#main-container {
+  max-width: 70%;
   margin: 0 auto;
 }
 img {
@@ -72,21 +71,6 @@ a {
 
 #search-input {
   margin-bottom: 10px;
-}
-
-/* * Color's * */
-body {
-  background-color: var(--Background);
-  color: var(--Text);
-}
-nav,
-button {
-  background-color: var(--background2);
-  color: var(--Background);
-}
-a {
-  color: var(--Text);
-  text-decoration: none;
 }
 
 * Button *
