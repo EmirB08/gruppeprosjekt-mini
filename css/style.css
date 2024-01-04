@@ -1,3 +1,49 @@
+* {
+  margin: 0;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* --------------
+* Style/general *
+---------------- */
+
+:root {
+  --Background: #ebebeb;
+  --background2: #212529;
+  --Text: #121517;
+  --Text-shadow: #cccccc;
+  --Shade: #182225;
+}
+nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+body,
+nav {
+  max-width: 75%;
+  margin: 0 auto;
+}
+img {
+  width: 80%;
+  border-radius: 5px;
+}
+/* * Color's * */
+body {
+  background-color: var(--Background);
+  color: var(--Text);
+}
+nav,
+button {
+  background-color: var(--background2);
+  color: var(--Background);
+}
+a {
+  color: var(--Text);
+  text-decoration: none;
+}
+
 #news-container {
   display: flex;
   flex-wrap: wrap;
@@ -26,4 +72,53 @@
 
 #search-input {
   margin-bottom: 10px;
+}
+
+/* * Color's * */
+body {
+  background-color: var(--Background);
+  color: var(--Text);
+}
+nav,
+button {
+  background-color: var(--background2);
+  color: var(--Background);
+}
+a {
+  color: var(--Text);
+  text-decoration: none;
+}
+
+* Button *
+--------- */
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin: 5px 0px;
+  cursor: pointer;
+}
+button:hover {
+  color: var(--Text-shadow);
+}
+/* --------------
+* Media queries *
+--------------- */
+@media screen and (min-width: 2560px) {
+  body,
+  nav {
+    max-width: 2560px;
+  }
+  #news-container .item-card {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 5120px) {
+  body,
+  nav {
+    max-width: 5120px;
+  }
+  #news-container .item-card {
+    width: 20%;
+  }
 }
