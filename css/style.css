@@ -68,3 +68,24 @@ button {
 button:hover {
   color: var(--Text-shadow);
 }
+/* ------------------
+!!! Media queries !!!
+------------------ */
+@media screen and (min-width: 2560px) {
+  body,
+  nav {
+    max-width: 2560px;
+  }
+  #news-container .item-card {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 5120px) {
+  body,
+  nav {
+    max-width: 5120px;
+  }
+  #news-container .item-card {
+    width: 20%;
+  }
+}
