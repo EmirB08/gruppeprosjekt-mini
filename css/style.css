@@ -4,9 +4,9 @@
   box-sizing: border-box;
   font-size: 20px;
 }
-/* ------------------
-!!! Style/general !!!
------------------- */
+/* --------------
+* Style/general *
+---------------- */
 
 :root {
   --Background: #ebebeb;
@@ -20,6 +20,15 @@ nav {
   justify-content: space-evenly;
 }
 
+body,
+nav {
+  max-width: 1920px;
+}
+img {
+  width: 80%;
+  border-radius: 5px;
+}
+/* * Color's * */
 body {
   background-color: var(--Background);
   color: var(--Text);
@@ -29,21 +38,13 @@ button {
   background-color: var(--background2);
   color: var(--Background);
 }
-body,
-nav {
-  max-width: 1920px;
-}
 a {
   color: var(--Text);
   text-decoration: none;
 }
-img {
-  width: 80%;
-  border-radius: 5px;
-}
-/* --------------
-!!! Comtainer !!!
--------------- */
+/* ----------
+* Comtainer *
+------------- */
 #news-container {
   display: flex;
   flex-wrap: wrap;
@@ -55,9 +56,9 @@ img {
   width: 40%;
   flex-grow: 1;
 }
-/* ----------
-!!! Button !!!
------------ */
+/* -------
+* Button *
+--------- */
 button {
   border: none;
   border-radius: 5px;
@@ -68,9 +69,9 @@ button {
 button:hover {
   color: var(--Text-shadow);
 }
-/* ------------------
-!!! Media queries !!!
------------------- */
+/* --------------
+* Media queries *
+--------------- */
 @media screen and (min-width: 2560px) {
   body,
   nav {
