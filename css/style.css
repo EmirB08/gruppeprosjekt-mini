@@ -1,0 +1,29 @@
+#news-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item-card {
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.news-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.news-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.news-title {
+  margin-top: 5px;
+}
+
+#search-input {
+  margin-bottom: 10px;
+}
