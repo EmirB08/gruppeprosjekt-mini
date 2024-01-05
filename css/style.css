@@ -20,15 +20,6 @@ nav {
   justify-content: space-evenly;
 }
 
-#main-container {
-  max-width: 70%;
-  margin: 0 auto;
-}
-img {
-  width: 80%;
-  border-radius: 5px;
-}
-/* * Color's * */
 body {
   background-color: var(--Background);
   color: var(--Text);
@@ -43,9 +34,16 @@ a {
   text-decoration: none;
 }
 
+#main-container {
+  max-width: 70%;
+  margin: 0 auto;
+}
+
 #news-container {
   display: flex;
+  margin: 0 auto;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .item-card {
@@ -85,6 +83,7 @@ button {
 button:hover {
   color: var(--Text-shadow);
 }
+
 /* --------------
 * Media queries *
 --------------- */

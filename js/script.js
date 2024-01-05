@@ -113,5 +113,5 @@ const displayNewsByCategory = (category, container) => {
     }
 };
 
-
 fetchNews();
+
