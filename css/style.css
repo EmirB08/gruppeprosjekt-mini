@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  padding: 0px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -15,9 +15,31 @@
   --Text-shadow: #cccccc;
   --Shade: #182225;
 }
+
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Roboto', sans-serif;
+}
+
 nav {
   display: flex;
   justify-content: space-evenly;
+  border-radius: 5px;
+}
+
+#search-container {
+  display: grid;
+  grid-template-columns: 10fr 2fr;
+  gap: 1%;
+  margin: 0 auto;
+}
+
+#search-input {
+  padding: 10px;
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
 }
 
 body {
@@ -44,13 +66,16 @@ a {
   margin: 0 auto;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 2%
 }
 
 .item-card {
-  border: 1px solid #ddd;
-  margin: 10px;
-  padding: 10px;
-  width: 200px;
+  width: 260px;
+  height: 320px;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
 .news-link {
@@ -59,16 +84,26 @@ a {
 }
 
 .news-image {
-  max-width: 100%;
-  height: auto;
+  width: 260px;
+  height: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+  transition: transform 0.25s ease-in-out;
+}
+
+.news-image:hover {
+  transform: scale(1.04);
 }
 
 .news-title {
   margin-top: 5px;
+  font-size: 1.1rem;
+  transition: color 0.25s ease-in-out;
 }
 
-#search-input {
-  margin-bottom: 10px;
+.news-title:hover {
+  color: rgba(4, 4, 255, 0.898);
+  text-decoration: underline;
 }
 
 button {
@@ -77,14 +112,16 @@ button {
   padding: 10px 5px;
   margin: 5px 0px;
   cursor: pointer;
+  transition: transform 0.25s ease-in-out;
 }
 button:hover {
-  color: var(--Text-shadow);
+  transform: scale(1.11);
 }
 
 /* --------------
 * Media queries *
 --------------- */
+/* these were interferring with the grid layout, so I commented them out 
 @media screen and (min-width: 2560px) {
   body,
   nav {
@@ -102,4 +139,4 @@ button:hover {
   #news-container .item-card {
     width: 20%;
   }
-}
+} */ 

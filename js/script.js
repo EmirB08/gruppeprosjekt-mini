@@ -1,5 +1,6 @@
 let data; // Declare data variable globally
 let newsDataByCategory = {}; // this is now global scope instead
+let isFrontPage = true; // Set to true by default
 
 const makeElements = (type, parameters) => { // creates an element with the given parameters
     const element = document.createElement(type);
@@ -41,7 +42,11 @@ const fetchNews = async () => {
     });
 
     const searchInput = document.getElementById("search-input");
-            searchInput.addEventListener("input", debounce(() => filterNews(searchInput.value), 300));                  
+            searchInput.addEventListener("input", debounce(() => filterNews(searchInput.value), 300));
+            
+            if (isFrontPage) {
+                frontPage(); // Call frontPage only if it's the front page view
+            }
 };
 
 const filterNews = (searchTerm) => {
@@ -57,6 +62,32 @@ const filterNews = (searchTerm) => {
         });
     });
 };
+
+const frontPage = () => { // made this so we can have the full list on caegories, but a limit on the front page
+    let allNewsItems = [];
+    Object.values(newsDataByCategory).forEach(categoryItems => {
+        allNewsItems = allNewsItems.concat(categoryItems);
+    });
+
+    
+    allNewsItems = shuffleArray(allNewsItems).slice(0, 60); //slice 60 random news items from the array
+
+    const container = document.getElementById("news-container");
+    container.innerHTML = '';
+
+    allNewsItems.forEach(item => {
+        const card = createItemCard(item);
+        container.appendChild(card);
+    });
+};
+
+function shuffleArray(array) { // Utility function to shuffle an array
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 const debounce = (func, delay) => {
     let timeout;
@@ -90,6 +121,7 @@ const button = makeElements("button", {
 });
 
 button.addEventListener("click", () => {
+    isFrontPage = false; // Set to false when a category is selected - since the other categories takes in around 60-70 news items anyway
     const container = document.getElementById("news-container");
     displayNewsByCategory(category, container);
 });
